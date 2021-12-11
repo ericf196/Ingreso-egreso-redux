@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "ingreso-egraso": {
+      "hosting": {
+        "ingresoEgresoRedux": [
+          "ingreso-egraso"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "ingreso-egraso"
+  }
+}
