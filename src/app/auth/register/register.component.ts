@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/app.reducer';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -10,7 +12,9 @@ import { AuthService } from '../auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  cargando:boolean;
+
+  constructor(private authService: AuthService, private store: Store<AppState>) { }
 
   registerForm: FormGroup;
 
@@ -20,7 +24,9 @@ export class RegisterComponent implements OnInit {
       nombre: new FormControl('', [Validators.required]),
       password: new FormControl('', [Validators.required])
     });
-
+    this.store.select('ui').subscribe((ui) => {
+      this.cargando = ui.isLoading;
+    })
   }
 
   onSubmitRegister() {
