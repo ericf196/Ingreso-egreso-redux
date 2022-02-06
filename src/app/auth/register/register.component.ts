@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { AppState } from 'src/app/app.reducer';
 import { AuthService } from '../auth.service';
 
@@ -10,9 +11,10 @@ import { AuthService } from '../auth.service';
   styles: [
   ]
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit,OnDestroy {
 
   cargando:boolean;
+  subscription:Subscription = new Subscription();
 
   constructor(private authService: AuthService, private store: Store<AppState>) { }
 
@@ -27,6 +29,10 @@ export class RegisterComponent implements OnInit {
     this.store.select('ui').subscribe((ui) => {
       this.cargando = ui.isLoading;
     })
+  }
+
+  ngOnDestroy(): void {
+      this.subscription.unsubscribe();
   }
 
   onSubmitRegister() {
