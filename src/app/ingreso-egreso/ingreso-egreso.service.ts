@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { AppState } from '../app.reducer';
+import { AppStateIngresoEgreso } from '../ingreso-egreso/ingreso-egreso.reducer';
 import { AuthService } from '../auth/auth.service';
 import { SetItemsAction, UnsetItemsAction } from './ingreso-egreso.actions';
 import { IngresoEgreso } from './ingreso-egreso.model';
@@ -19,7 +20,8 @@ export class IngresoEgresoService {
   constructor(
     private afDB: AngularFirestore,
     public authService: AuthService,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    private storeLazy: Store<AppStateIngresoEgreso>
   ) { }
 
   initIngresoEgresoListener() {
@@ -39,7 +41,7 @@ export class IngresoEgresoService {
       .subscribe((docData: any[]) => {
         console.log(docData)
 
-        this.store.dispatch( new SetItemsAction(docData));
+        this.storeLazy.dispatch( new SetItemsAction(docData));
       })
   }
 

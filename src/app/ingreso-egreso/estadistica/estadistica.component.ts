@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { AppState } from 'src/app/app.reducer';
+//import { AppState } from 'src/app/app.reducer';
+import { AppStateIngresoEgreso } from '../ingreso-egreso.reducer';
 import { IngresoEgreso } from '../ingreso-egreso.model';
 import { ChartData, ChartType } from 'chart.js';
 
@@ -29,7 +30,7 @@ export class EstadisticaComponent implements OnInit {
     ]
   };
 
-  constructor( private store:Store<AppState>) { }
+  constructor( private store:Store<AppStateIngresoEgreso>) { }
 
   ngOnInit(): void {
     this.subscription = this.store.select('ingresoEgreso')
